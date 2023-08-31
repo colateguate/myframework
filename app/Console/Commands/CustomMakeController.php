@@ -33,22 +33,26 @@ class CustomMakeController extends Command
         $name = $this->argument('name');
         $folder = $this->argument('folder');
 
-        // Ejecutar el comando original para crear el controlador
-        $this->call('make:controller', ['name' => $name]);
-
-        // Crear el directorio si no existe
+        //Check if path exists, create if not.
         if (!File::exists(base_path("my_framework/Application/$folder/controllers"))) {
             File::makeDirectory(base_path("my_framework/Application/$folder/controllers"), 0755, true);
         }
 
+        // Execute orginal artisan command
+        $this->call('make:controller', ['name' => $name]);
+
         $sourcePath = base_path("app/Http/Controllers/$name.php");
         $destinationPath = base_path("my_framework/Application/$folder/controllers/$name.php");
 
-        if (File::exists($sourcePath)) {
-            File::move($sourcePath, $destinationPath);
-        } else {
-            $this->error("El archivo fuente no existe: $sourcePath");
-        }
+        $originalContent = File::get(base_path("app/Http/Controllers/$name.php"));
 
+        // Reemplazar el namespace y añadir use
+        $newNamespace = "my_framework\\Application\\$folder\\controllers";
+        $replacedContent = str_replace('namespace App\\Http\\Controllers;', "namespace $newNamespace;\n\nuse App\\Http\\Controllers\\Controller;", $originalContent);
+
+        File::put("my_framework/Application/$folder/controllers/$name.php", $replacedContent);
+
+        // Eliminar el archivo original
+        File::delete(base_path("app/Http/Controllers/$name.php"));
     }
 }
