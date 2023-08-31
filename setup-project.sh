@@ -11,17 +11,16 @@ if [ -z "$projectName" ]; then
 fi
 
 # Actualizar todos los archivos que necesitan ser actualizados.
-# Esto incluye cambiar 'my_framework' al nuevo nombre del proyecto en composer.json
+# Esto incluye cambiar 'my_framework' al nuevo nombre del proyecto en composer.json y archivos PHP.
 if [[ "$OSTYPE" == "darwin"* ]]; then
   # macOS
   sed -i '' "s/my_framework/$projectName/g" composer.json
+  find . -type f -name "*.php" -exec sed -i '' "s/my_framework/$projectName/g" {} +
 else
   # suponemos Linux o similar
   sed -i "s/my_framework/$projectName/g" composer.json
+  find . -type f -name "*.php" -exec sed -i "s/my_framework/$projectName/g" {} +
 fi
-
-# Actualizar las referencias en los archivos PHP
-find . -type f -name "*.php" -exec sed -i "s/my_framework/$projectName/g" {} +
 
 # Renombrar directorios
 mv my_framework "$projectName"
