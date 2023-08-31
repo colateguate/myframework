@@ -26,6 +26,7 @@ fi
 mv my_framework "$projectName"
 
 # Actualizar el autoload en composer.json
+composer update
 composer dump-autoload
 
 # Mostrar un mensaje de éxito
