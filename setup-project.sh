@@ -1,12 +1,19 @@
 #!/bin/bash
 
 # Obtén el nombre del proyecto del usuario
+echo "**************************************************"
+echo "**************************************************"
+echo "*                               SET UP                                              *"
+echo "**************************************************"
+echo "**************************************************"
+
 echo "Por favor, introduce el nombre de tu nuevo proyecto:"
+
 read projectName
 
 # Comprueba si se ha introducido el nombre del proyecto
 if [ -z "$projectName" ]; then
-  echo "El nombre del proyecto no puede estar vacío."
+  echo "ALERT!! --> El nombre del proyecto no puede estar vacío."
   exit 1
 fi
 
@@ -30,4 +37,4 @@ composer update
 composer dump-autoload
 
 # Mostrar un mensaje de éxito
-echo "El proyecto ha sido renombrado a $projectName exitosamente."
+echo "NIICE!! --> El proyecto ha sido renombrado a $projectName exitosamente."
