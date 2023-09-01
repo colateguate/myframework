@@ -6,8 +6,8 @@ class CommandBus implements Bus
 {
     use BusTrait;
 
-    public function dispatch(Dto $dto, ?Response $response = null)
+    public function dispatch(Dto $dto)
     {
-        return $this->execute($dto, $response);
+        return $this->execute($dto);
     }
 }
