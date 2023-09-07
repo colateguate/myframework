@@ -13,7 +13,7 @@ class RepositoriesServiceProvider extends ServiceProvider
     public function register(): void
     {
         // El método app_path sobreentiende que estamos dentro de app, como no es así editamos el path con str_replace
-        $domainPath = str_replace("/app/", "/", app_path('my_framework/Domain')); // actualiza a la ruta correcta
+        $domainPath = str_replace("/app/", "/", app_path('backend/Domain')); // actualiza a la ruta correcta
 
         $contextFolders = File::directories($domainPath);
 
@@ -31,8 +31,8 @@ class RepositoriesServiceProvider extends ServiceProvider
                 // ----- REPOSITORIES MAPPING --------
                 if (strpos($baseName, "Repository") !== false) {
                     // forma los nombres completos de las clases de la interfaz y la implementación
-                    $repo_interface = "my_framework\Domain\\$contextName\\$baseName";
-                    $repo_implementation = "my_framework\Infrastructure\\$contextName\\{$baseName}Mysql";
+                    $repo_interface = "backend\Domain\\$contextName\\$baseName";
+                    $repo_implementation = "backend\Infrastructure\\$contextName\\{$baseName}Mysql";
                     // registra la implementación en el contenedor de servicios
                     $this->app->bind($repo_interface, $repo_implementation);
                 }

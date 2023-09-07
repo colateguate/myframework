@@ -28,7 +28,7 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/",
-            "my_framework\\": "my_framework/"
+            "backend\\": "backend/"
         }
     },
     "autoload-dev": {

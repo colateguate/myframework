@@ -13,7 +13,7 @@ class FactoriesServiceProvider extends ServiceProvider
     public function register(): void
     {
         // El método app_path sobreentiende que estamos dentro de app, como no es así editamos el path con str_replace
-        $infrastructure = str_replace("/app/", "/", app_path('my_framework/Infrastructure')); // actualiza a la ruta correcta
+        $infrastructure = str_replace("/app/", "/", app_path('backend/Infrastructure')); // actualiza a la ruta correcta
 
         $contextFolders = File::directories($infrastructure);
 
@@ -29,8 +29,8 @@ class FactoriesServiceProvider extends ServiceProvider
                 $baseName = pathinfo($file->getFilename(), PATHINFO_FILENAME);
                 // ----- FACTORIES MAPPING --------
                 if (strpos($baseName, "Factory") !== false) {
-                    $factory_interface = "my_framework\Domain\core\Factory";
-                    $factory_implementation = "my_framework\Infrastructure\\$contextName\\$baseName";
+                    $factory_interface = "backend\Domain\core\Factory";
+                    $factory_implementation = "backend\Infrastructure\\$contextName\\$baseName";
                     $this->app->bind($factory_interface, $factory_implementation);
                 }
 
